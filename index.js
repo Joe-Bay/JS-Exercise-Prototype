@@ -100,11 +100,24 @@ function Car(model, milesPerGallon) {
 Car.prototype.fill = function(gallons){
   this.tank += gallons;
 };
+Car.prototype.drive = function(distance){
+  this.odometer = this.odometer + distance;
+  this.tank = this.tank - Math.floor(distance/this.milesPerGallon);
+  const maxDist = this.tank * this.milesPerGallon;
+  if(maxDist < distance){
+     this.odometer = distance - maxDist;
+     this.tank = 0;
+  }
+  if(this.tank === 0){
+    return `I ran out of fuel at ${this.odometer} miles!`;
+  }
+};
 
-// creat object
+// creat object // car name and miles per gallon
 const firstCar = new Car('BatMobile', 10);
-
+// filling up with x amount of gallons
 firstCar.fill(10);
+console.log(firstCar.drive(100));
 
 
 
