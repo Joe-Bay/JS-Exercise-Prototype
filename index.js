@@ -115,18 +115,30 @@ firstCar.fill(10);
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
 
+// creating baby constructor
+function Baby(name, age, favoriteToy) {
+Person.call(this, name, age); // binds this to person
+this.favoriteToy = favoriteToy;
 }
+
+Baby.prototype = Object.create(Person.prototype);
+
+// creating method for play
+Baby.prototype.play = function() {
+  return `Playing with ${this.favoriteToy}, ${this.favoriteToy} being the favorite toy`;
+}
+const newBaby = new Baby('Lucy', 5, 'Trains');
+console.log(newBaby.play());
 
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. running this on the global scope resulting in undefined while in strict mode or referencing a giant file while not in strict mode
+  2. implicit binding is next which basically means it points to the object to the left of the '.'also used most of the time
+  3. Explicit binding is when you use methods like call, apply, and even bind. by using these you invoke a function with a value for 'this'
+  4. new binding is the last one, by using the 'new' keyword it constructs a new object and 'this' points to it
 */
 
 
